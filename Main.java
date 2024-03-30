@@ -4,25 +4,21 @@ import java.lang.reflect.Method;
  * Класс, который содержит метод main для создания и вывода информации о животных
  */
 
-public class Main {
-
-    /**
-     * Метод main для создания и вывода информации о животных
-     * @param args-параметры командной строки
-     */
+ public class Main {
     public static void main(String[] args) {
-        Animal[] animals = {new Dog("Tuzic", 5, "Staford"), new Dog("Sharic", 6, "Pitbull"), new Cat("Fluffy", 3, true), new Cat("Busia", 7, true)};
+        Animal[] animals = {new Dog("Барон", 3, "Бультерьер"), new Dog("Шарик", 7, "Питбуль"), new Cat("Буся", 7, false), new Cat("Мурка", 4, true)};
 
         for (Animal animal : animals) {
-            System.out.println("Name: " + animal.getClass().getSimpleName());
-            System.out.println("Age: " + animal.age);
+            // Вывод информации о каждом объекте
+            System.out.println("Имя: " + animal.name + ", Возраст: " + animal.age);
+
+            // Вызов метода makeSound() с использованием Reflection API
             try {
-                Method makeSoundMethod = animal.getClass().getMethod("makeSound");
-                makeSoundMethod.invoke(animal);
+                Method method = animal.getClass().getMethod("makeSound");
+                method.invoke(animal);
             } catch (Exception e) {
-                System.out.println("Cannot make the animal sound");
+                System.out.println("У объекта " + animal.getClass().getSimpleName() + " отсутствует метод makeSound.");
             }
-            System.out.println("-----------------");
         }
     }
 }
